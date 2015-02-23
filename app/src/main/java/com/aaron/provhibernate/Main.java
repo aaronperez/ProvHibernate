@@ -270,10 +270,9 @@ public class Main extends ActionBarActivity implements LoaderManager.LoaderCallb
                     objetoJSON.put("localidad", cursor.getString(0) + "");
                     objetoJSON.put("tipo", cursor.getString(1));
                     objetoJSON.put("precio", cursor.getInt(2) + "");
-                    objetoJSON.put("calle", cursor.getString(3));
-                    objetoJSON.put("numero", cursor.getString(4));
+                    objetoJSON.put("direccion", cursor.getString(3));
                     objetoJSON.put("usuario", this.getSharedPreferences("usuario", 0));
-                    subirInmueble(objetoJSON, cursor.getString(6));
+                    subirInmueble(objetoJSON, cursor.getString(5));
                 } catch (JSONException e) {
                 }
                 i++;
@@ -314,8 +313,6 @@ public class Main extends ActionBarActivity implements LoaderManager.LoaderCallb
                         String[] args = new String[]{idOriginal};
                         getContentResolver().update(uri, valores, where, args);
                         subirFotos(idOriginal, id+"");
-                    }else{
-                        Log.v("mio", "error");
                     }
                 }
             }
@@ -360,7 +357,7 @@ public class Main extends ActionBarActivity implements LoaderManager.LoaderCallb
                 public synchronized void run() {
                     String res =postFile(URLCONTROL+"?action=fichero", "archivo", fotos.get(finalI), id);
                     if(res == null)
-                        Toast.makeText(Main.this, getString(R.string.errorF), Toast.LENGTH_SHORT).show();
+                        tostada(R.string.errorF);
                 }
             };
             t.start();
